@@ -1,0 +1,34 @@
+body {
+    background-color: black;
+    text-align: center;
+}
+#main {
+    width: 1000px;
+    height: 600px;
+    background-color:gold ;
+    margin: 25px auto;
+    border: solid 2px black;
+    padding: 10px;
+}
+h1 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font: 24pt;
+    color: gray;
+
+}
+hr {
+    height: 2px;
+    color: gray;
+}
+p {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 12pt;
+    text-align: left;
+    text-indent: 48px;
+    color: black
+}
+img {
+    width: 49%;
+    height: 75%;
+}

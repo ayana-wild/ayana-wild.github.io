@@ -1,0 +1,49 @@
+html>
+    <head>
+        <title>Find the Differences :) </title>
+        <link href="style.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="main">
+            <h1>Find the Differences :)</h1>
+            <hr>
+            <p id="demo"></p>
+            <img id="image1" src="images/img_bg.jpg" >
+            <img id="image2" src="images/img_bg2.jpg" >
+        </div>
+    </body>
+    <script>
+        console.log(document.URL)
+        imageMatchPoints = [{x: 135,y: 122.125},{x: 390, y:377.125}]
+        function getMousePosition(image,event){
+
+            let imageBox = image.getBoundingClientRect();
+            let x = event.clientX - imageBox.left;
+            let y = event.clientY - imageBox.top;
+            console.log("X: "+x, "Y: " +y);
+            var i;
+            var count = 1;
+            for( i = 0; i< imageMatchPoints.length; i++){
+                
+                if (x >= imageMatchPoints[i].x-5 && x <= imageMatchPoints[i].x+5){
+                    if (y>= imageMatchPoints[i].y-5 && y <= imageMatchPoints[i].y + 5){
+                        document.getElementById("demo").textContent += "Match " + (i+1) + "!!\ ";
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        let imageElem = document.querySelectorAll("img");
+        let image1elem = imageElem[0];
+        console.log(imageElem)
+        image1elem.addEventListener("mousedown",function(e){
+            getMousePosition(image1elem,e)
+        })
+        let image2elem = imageElem[1];
+        image2elem.addEventListener("mousedown",function(e){
+            getMousePosition(image2elem,e)
+        })
+    </script>
+</html>
