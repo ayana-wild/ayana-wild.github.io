@@ -4,7 +4,7 @@ body {
 }
 #main {
     width: 1000px;
-    height: 600px;
+    height: auto;
     background-color:goldenrod ;
     margin: 25px auto;
     border: solid 2px black;
@@ -32,5 +32,5 @@ p {
 }
 img {
     width: 49%;
-    height: 75%;
+    height:65%;
 }
