@@ -16,6 +16,8 @@ h1 {
     font: 24pt;
     color: black;
     white-space: pre;
+    text-decoration: underline;
+    
 
 }
 hr {

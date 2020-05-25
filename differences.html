@@ -1,12 +1,13 @@
 <html>
     <head>
-        <title>Find the Differences :) </title>
+        <title>Find the Differences Exercise </title>
         <link href="style.css" type="text/css" rel="stylesheet">
     </head>
     <body>
         <div id="main">
-            <h1>Find the Differences :)</h1>
-            <h2> There are <var>numberOfMatches</var> matches to find.</h2>
+            <h1>Find the Differences</h1>
+            <h2 id="numberMatches"> </h2>
+            <h3 id="numLeft"> </h3>
             <hr>
             <p id="demo"></p>
             <img id="image1" src="images/img1.jpg" >
@@ -15,13 +16,15 @@
     </body>
     <script>
         console.log(document.URL)
-        imageMatchPoints = [{x: 97,y: 139.73,clicked: false, rangeX: 32, rangeY: 21 },
-                            {x: 99, y: 309.73, clicked: false, rangeX: 47, rangeY: 15 },
-                            {x: 420.5, y: 91.21, clicked: false, rangeX: 58.5, rangeY: 75 },
-                            {x: 302, y: 367.21, clicked: false, rangeX: 18, rangeY: 22 },
-                            {x: 431, y: 293.71, clicked: false, rangeX: 19, rangeY: 22.5 }]
-        var numberOfMatches = imageMatchPoints.length
-        document.getElementById("demo").textContent = "You found: \n"
+        imageMatchPoints = [{x: 97,y: 173.91,clicked: false, rangeX: 32, rangeY: 19 },
+                            {x: 99, y: 372.41, clicked: false, rangeX: 47, rangeY: 19.5 },
+                            {x: 420.5, y: 110.41, clicked: false, rangeX: 58.5, rangeY: 91.5 },
+                            {x: 302, y: 440.41, clicked: false, rangeX: 18, rangeY: 20.5 },
+                            {x: 431, y: 354.41, clicked: false, rangeX: 19, rangeY: 24.5 }]
+        console.log(imageMatchPoints);
+        var numberOfMatches = imageMatchPoints.length;
+        document.getElementById("numberMatches").textContent = "There are a total of "+numberOfMatches+" matches to find.";
+        document.getElementById("demo").textContent = "You found: \n";
         var count = 0;
         function getMousePosition(image,event){
 
@@ -39,6 +42,7 @@
                             document.getElementById("demo").textContent += "match " + (i+1) + ",\n\r ";
                             imageMatchPoints[i].clicked=true
                             count +=1;
+                            document.getElementById("numLeft").textContent = " " + (numberOfMatches-count)+" matches left to find!";
                             console.log(count)
                         }
                         
@@ -48,6 +52,7 @@
             }
             if(count == numberOfMatches){
                 congratsMessage = "Congratulations! You found all of the matches!!!!";
+                document.getElementById("numLeft").textContent = " ";
                 document.getElementById("demo").style.fontWeight= "bold";
                 document.getElementById("demo").style.textAlign = "center";
                 document.getElementById("demo").style.color = "green";
