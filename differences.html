@@ -16,15 +16,16 @@
     </body>
     <script>
         console.log(document.URL)
-        imageMatchPoints = [{x: 97,y: 173.91,clicked: false, rangeX: 32, rangeY: 19 },
-                            {x: 99, y: 372.41, clicked: false, rangeX: 47, rangeY: 19.5 },
-                            {x: 420.5, y: 110.41, clicked: false, rangeX: 58.5, rangeY: 91.5 },
-                            {x: 302, y: 440.41, clicked: false, rangeX: 18, rangeY: 20.5 },
-                            {x: 431, y: 354.41, clicked: false, rangeX: 19, rangeY: 24.5 }]
+        imageMatchPoints = [{x: 79.5,y: 76.5,clicked: false, rangeX: 24.5, rangeY: 8.5 }, // facial expression
+                            {x: 80, y: 169.5, clicked: false, rangeX: 42, rangeY: 9.5 }, // lines on dress
+                            {x: 348, y: 49, clicked: false, rangeX: 40, rangeY: 41 }, // circle
+                            {x: 248.5, y: 199, clicked: false, rangeX: 14.5, rangeY: 10 }, // leaf
+                            {x: 353.5, y: 162, clicked: false, rangeX: 14.5, rangeY: 12}] // center of flower
         console.log(imageMatchPoints);
         var numberOfMatches = imageMatchPoints.length;
-        document.getElementById("numberMatches").textContent = "There are a total of "+numberOfMatches+" matches to find.";
-        document.getElementById("demo").textContent = "You found: \n";
+        document.getElementById("numberMatches").style.textAlign="center"; 
+        document.getElementById("numberMatches").textContent = "There are a total of "+numberOfMatches+" differences to find.";
+        // document.getElementById("demo").textContent = "You found: \n";
         var count = 0;
         function getMousePosition(image,event){
 
@@ -39,10 +40,12 @@
                 if (x >= imageMatchPoints[i].x-imageMatchPoints[i].rangeX && x <= imageMatchPoints[i].x+imageMatchPoints[i].rangeX){
                     if (y>= imageMatchPoints[i].y-imageMatchPoints[i].rangeY && y <= imageMatchPoints[i].y + imageMatchPoints[i].rangeY){
                         if (imageMatchPoints[i].clicked == false){
-                            document.getElementById("demo").textContent += "match " + (i+1) + ",\n\r ";
+                            // document.getElementById("demo").textContent += "match " + (i+1) + ",\n\r ";
                             imageMatchPoints[i].clicked=true
                             count +=1;
-                            document.getElementById("numLeft").textContent = " " + (numberOfMatches-count)+" matches left to find!";
+                            document.getElementById("demo").style.fontWeight= "bold";
+                            document.getElementById("demo").style.textAlign = "center";
+                            document.getElementById("demo").textContent = (numberOfMatches-count)+" differences left to find!";
                             console.log(count)
                         }
                         
@@ -56,7 +59,8 @@
                 document.getElementById("demo").style.fontWeight= "bold";
                 document.getElementById("demo").style.textAlign = "center";
                 document.getElementById("demo").style.color = "green";
-                document.getElementById("demo").textContent = "\r" + "\n"+congratsMessage;
+                document.getElementById("demo").textContent = congratsMessage;
+                
             }
             
         }
