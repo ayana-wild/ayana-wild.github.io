@@ -4,7 +4,7 @@ body {
     padding-top: 20%;
     padding-bottom: 20%;
 }
-button {
+#button {
     background-color: goldenrod;
     border: black;
     color: black;
@@ -16,6 +16,19 @@ button {
     font-family: 'Times New Roman', Times, serif;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+a{
+    display: block;
+    width: 100%;
+    line-height: 2em;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+}
+a:hover {
+    color: red;
+    background: #eff;
 }
 #main {
     width: 1000px;
