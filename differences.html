@@ -7,25 +7,25 @@
         <div id="main">
             <h1>Find the Differences</h1>
             <h2 id="numberMatches"> </h2>
-            <h3 id="numLeft"> </h3>
             <hr>
-            <p id="demo"></p>
+            <p id="numLeft"></p>
+            <p id="listOfFound"></p>
             <img id="image1" src="images/img1.jpg" >
             <img id="image2" src="images/img2.jpg" >
         </div>
     </body>
     <script>
         console.log(document.URL)
-        imageMatchPoints = [{x: 79.5,y: 76.5,clicked: false, rangeX: 24.5, rangeY: 8.5 }, // facial expression
-                            {x: 80, y: 169.5, clicked: false, rangeX: 42, rangeY: 9.5 }, // lines on dress
-                            {x: 348, y: 49, clicked: false, rangeX: 40, rangeY: 41 }, // circle
-                            {x: 248.5, y: 199, clicked: false, rangeX: 14.5, rangeY: 10 }, // leaf
-                            {x: 353.5, y: 162, clicked: false, rangeX: 14.5, rangeY: 12}] // center of flower
+        imageMatchPoints = [{x: 79.5,y: 76.5,clicked: false, rangeX: 24.5, rangeY: 8.5, descriptor: "Facial Expression" }, // facial expression
+                            {x: 80, y: 169.5, clicked: false, rangeX: 42, rangeY: 9.5, descriptor: "Lines on Dress" }, // lines on dress
+                            {x: 348, y: 49, clicked: false, rangeX: 40, rangeY: 41, descriptor: "Circle" }, // circle
+                            {x: 248.5, y: 199, clicked: false, rangeX: 14.5, rangeY: 10, descriptor: "Missing Leaf"}, // leaf
+                            {x: 353.5, y: 162, clicked: false, rangeX: 14.5, rangeY: 12, descriptor: "Center of Flower"}] // center of flower
         console.log(imageMatchPoints);
         var numberOfMatches = imageMatchPoints.length;
         document.getElementById("numberMatches").style.textAlign="center"; 
         document.getElementById("numberMatches").textContent = "There are a total of "+numberOfMatches+" differences to find.";
-        // document.getElementById("demo").textContent = "You found: \n";
+        document.getElementById("listOfFound").textContent = "Found Items:";
         var count = 0;
         function getMousePosition(image,event){
 
@@ -40,12 +40,14 @@
                 if (x >= imageMatchPoints[i].x-imageMatchPoints[i].rangeX && x <= imageMatchPoints[i].x+imageMatchPoints[i].rangeX){
                     if (y>= imageMatchPoints[i].y-imageMatchPoints[i].rangeY && y <= imageMatchPoints[i].y + imageMatchPoints[i].rangeY){
                         if (imageMatchPoints[i].clicked == false){
-                            // document.getElementById("demo").textContent += "match " + (i+1) + ",\n\r ";
                             imageMatchPoints[i].clicked=true
                             count +=1;
-                            document.getElementById("demo").style.fontWeight= "bold";
-                            document.getElementById("demo").style.textAlign = "center";
-                            document.getElementById("demo").textContent = (numberOfMatches-count)+" differences left to find!";
+                            document.getElementById("numLeft").style.fontWeight= "bold";
+                            document.getElementById("numLeft").style.textAlign = "center";
+                            document.getElementById("numLeft").textContent = (numberOfMatches-count)+" differences left to find!";
+                            
+                            document.getElementById("listOfFound").style.textAlign = "left";
+                            document.getElementById("listOfFound").textContent += "\n\t  "+ (i+1) +": "+ imageMatchPoints[i].descriptor;
                             console.log(count)
                         }
                         
@@ -55,11 +57,11 @@
             }
             if(count == numberOfMatches){
                 congratsMessage = "Congratulations! You found all of the matches!!!!";
-                document.getElementById("numLeft").textContent = " ";
-                document.getElementById("demo").style.fontWeight= "bold";
-                document.getElementById("demo").style.textAlign = "center";
-                document.getElementById("demo").style.color = "green";
-                document.getElementById("demo").textContent = congratsMessage;
+                document.getElementById("numLeft").style.fontWeight= "bold";
+                document.getElementById("numLeft").style.textAlign = "center";
+                document.getElementById("numLeft").style.color = "green";
+                document.getElementById("numLeft").textContent = congratsMessage;
+                document.getElementById("listOfFound").textContent = "";
                 
             }
             
