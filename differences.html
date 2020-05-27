@@ -27,14 +27,23 @@
         document.getElementById("numberMatches").textContent = "There are a total of "+numberOfMatches+" differences to find.";
         document.getElementById("listOfFound").textContent = "Found Items:";
         var count = 0;
+        var initialTime =  new Date();
+        var interTime = new Date();
+        // var fs =  require('fs');
+        let time = []
+        let timeDiff = []
+        var totalTime = 0;
+        var UserID = Math.random().toString(36).substr(2, 9);
         function getMousePosition(image,event){
-
+            
             let imageBox = image.getBoundingClientRect();
             let x = event.clientX - imageBox.left;
             let y = event.clientY - imageBox.top;
             console.log("X: "+x, "Y: " +y);
             var i;
-            
+            var fso, fileHandle;
+            var currentTime =  new Date();
+            var resultsFile = "results.txt";
             
             for( i = 0; i< imageMatchPoints.length; i++){
                 if (x >= imageMatchPoints[i].x-imageMatchPoints[i].rangeX && x <= imageMatchPoints[i].x+imageMatchPoints[i].rangeX){
@@ -42,10 +51,22 @@
                         if (imageMatchPoints[i].clicked == false){
                             imageMatchPoints[i].clicked=true
                             count +=1;
+                            console.log("Current Time: " + currentTime.getHours()+":" + currentTime.getMinutes() + ":" + currentTime.getSeconds());
+            
+                            time.push(currentTime.getHours()+":" + currentTime.getMinutes() + ":" + currentTime.getSeconds());
+                            differenceOTimes  = (currentTime.getHours()-interTime.getHours())+":" + (currentTime.getMinutes()-interTime.getMinutes()) + ":" + (currentTime.getSeconds() - interTime.getSeconds());
+                            interTime = currentTime;
+                            timeDiff.push(differenceOTimes);
+                            console.log(time);
+                            console.log("Time Differences:" + timeDiff);
                             document.getElementById("numLeft").style.fontWeight= "bold";
                             document.getElementById("numLeft").style.textAlign = "center";
-                            document.getElementById("numLeft").textContent = (numberOfMatches-count)+" differences left to find!";
-                            
+                            if((numberOfMatches-count)==1){
+                                document.getElementById("numLeft").textContent = (numberOfMatches-count)+" difference left to find!";
+                            }
+                            else {
+                                document.getElementById("numLeft").textContent = (numberOfMatches-count)+" differences left to find!";
+                            }
                             document.getElementById("listOfFound").style.textAlign = "left";
                             document.getElementById("listOfFound").textContent += "\n\t  "+ (i+1) +": "+ imageMatchPoints[i].descriptor;
                             console.log(count)
@@ -62,10 +83,32 @@
                 document.getElementById("numLeft").style.color = "green";
                 document.getElementById("numLeft").textContent = congratsMessage;
                 document.getElementById("listOfFound").textContent = "";
+                totalTime = (currentTime.getHours()-initialTime.getHours())+":" + (currentTime.getMinutes()-initialTime.getMinutes()) + ":" + (currentTime.getSeconds() - initialTime.getSeconds());
+                console.log(totalTime)
+                let data = 
+                    '\r User ID: ' + UserID + ' \r\n ' + 
+                    'Times: ' +time + ' \r\n ' + 
+                    'Time Differences: ' + timeDiff + ' \r\n ' + 
+                    'Total Time: ' + totalTime;
+                const textToBLOB = new Blob([data], { type: 'text/plain' });
+                let newLink = document.createElement("a");
+                newLink.download = resultsFile;
                 
+                if (window.webkitURL != null) {
+                    newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+                }
+                else {
+                    newLink.href = window.URL.createObjectURL(textToBLOB);
+                    newLink.style.display = "none";
+                    document.body.appendChild(newLink);
+                }
+
+                newLink.click(); 
+        
             }
             
         }
+        
         let imageElem = document.querySelectorAll("img");
         let image1elem = imageElem[0];
         console.log(imageElem)
