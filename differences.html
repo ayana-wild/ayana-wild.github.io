@@ -51,14 +51,14 @@
                         if (imageMatchPoints[i].clicked == false){
                             imageMatchPoints[i].clicked=true
                             count +=1;
-                            console.log("Current Time: " + currentTime.getHours()+":" + currentTime.getMinutes() + ":" + currentTime.getSeconds());
+                            // console.log("Current Time: " + currentTime.getHours()+":" + currentTime.getMinutes() + ":" + currentTime.getSeconds());
             
                             time.push(currentTime.getHours()+":" + currentTime.getMinutes() + ":" + currentTime.getSeconds());
                             differenceOTimes  = (currentTime.getHours()-interTime.getHours())+":" + (currentTime.getMinutes()-interTime.getMinutes()) + ":" + (currentTime.getSeconds() - interTime.getSeconds());
                             interTime = currentTime;
                             timeDiff.push(differenceOTimes);
-                            console.log(time);
-                            console.log("Time Differences:" + timeDiff);
+                            // console.log(time);
+                            // console.log("Time Differences:" + timeDiff);
                             document.getElementById("numLeft").style.fontWeight= "bold";
                             document.getElementById("numLeft").style.textAlign = "center";
                             if((numberOfMatches-count)==1){
@@ -69,7 +69,7 @@
                             }
                             document.getElementById("listOfFound").style.textAlign = "left";
                             document.getElementById("listOfFound").textContent += "\n\t  "+ (i+1) +": "+ imageMatchPoints[i].descriptor;
-                            console.log(count)
+                            // console.log(count)
                         }
                         
                     }
@@ -78,6 +78,7 @@
             }
             if(count == numberOfMatches){
                 congratsMessage = "Congratulations! You found all of the matches!!!!";
+                orderFound = document.getElementById("listOfFound").textContent;
                 document.getElementById("numLeft").style.fontWeight= "bold";
                 document.getElementById("numLeft").style.textAlign = "center";
                 document.getElementById("numLeft").style.color = "green";
@@ -89,7 +90,8 @@
                     '\r User ID: ' + UserID + ' \r\n ' + 
                     'Times: ' +time + ' \r\n ' + 
                     'Time Differences: ' + timeDiff + ' \r\n ' + 
-                    'Total Time: ' + totalTime;
+                    'Total Time: ' + totalTime + '\r\n ' +
+                    orderFound;
                 const textToBLOB = new Blob([data], { type: 'text/plain' });
                 let newLink = document.createElement("a");
                 newLink.download = resultsFile;
